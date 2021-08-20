@@ -1,12 +1,15 @@
 package com.maja.sdamovieapp.user.entity;
 
+import com.maja.sdamovieapp.order.entity.Order;
 import com.maja.sdamovieapp.user.enums.ClientTypeEnum;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 /**
  * Mapowanie bazodanowe użytkowników
@@ -49,4 +52,8 @@ public class User {
     @Enumerated(EnumType.STRING)
     @Column(name = "client_type")
     private ClientTypeEnum clientType;
+
+    @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private List<Order> orders;
 }
