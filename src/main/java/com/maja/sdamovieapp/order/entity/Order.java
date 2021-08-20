@@ -1,16 +1,21 @@
 package com.maja.sdamovieapp.order.entity;
 
+import com.maja.sdamovieapp.copy.entity.MovieCopy;
 import com.maja.sdamovieapp.order.enums.OrderStatusEnum;
 import com.maja.sdamovieapp.user.entity.User;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
 @Data
-@Table(name = "orers")
+@Table(name = "orders")
 public class Order {
 
     @Id
@@ -39,4 +44,8 @@ public class Order {
     @Enumerated(EnumType.STRING)
     @Column(name = "order_status")
     private OrderStatusEnum orderStatus;
+
+    @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy = "order")
+    private Set<MovieCopyOrder> movieCopyOrders = new HashSet<>();
 }
