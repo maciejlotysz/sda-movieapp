@@ -1,11 +1,9 @@
 package com.maja.sdamovieapp.order.entity;
 
-import com.maja.sdamovieapp.copy.entity.MovieCopy;
 import com.maja.sdamovieapp.order.enums.OrderStatusEnum;
 import com.maja.sdamovieapp.user.entity.User;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;

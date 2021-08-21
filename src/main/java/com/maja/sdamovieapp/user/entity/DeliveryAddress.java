@@ -16,7 +16,7 @@ public class DeliveryAddress {
     private Long id;
 
     @OneToOne
-    @Column(name = "user_id")
+    @JoinColumn(name = "user_id")
     private User user;
 
     @NotBlank
