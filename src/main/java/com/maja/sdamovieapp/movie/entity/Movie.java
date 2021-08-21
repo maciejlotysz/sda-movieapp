@@ -1,5 +1,7 @@
 package com.maja.sdamovieapp.movie.entity;
 
+import com.maja.sdamovieapp.copy.entity.MovieCopy;
+import com.maja.sdamovieapp.movie.enums.MovieGenreEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -30,8 +32,9 @@ public class Movie {
     private String director;
 
     @NotBlank
+    @Enumerated(EnumType.STRING)
     @Column(name = "movie_genre")
-    private String movieGenre;
+    private MovieGenreEnum movieGenre;
 
     @Size(max = 500)
     private String description;
@@ -40,4 +43,7 @@ public class Movie {
     @ToString.Exclude
     @OneToMany(mappedBy = "movie", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<MovieRates> movieRates = new ArrayList<>();
+
+    @OneToMany(mappedBy = "movie")
+    private List<MovieCopy> copies = new ArrayList<>();
 }
