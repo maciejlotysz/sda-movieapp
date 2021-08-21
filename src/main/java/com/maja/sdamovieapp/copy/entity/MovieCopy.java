@@ -5,6 +5,7 @@ import com.maja.sdamovieapp.movie.entity.Movie;
 import com.maja.sdamovieapp.order.entity.MovieCopyOrder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -34,6 +35,7 @@ public class MovieCopy {
     private DiscTypeEnum discType;
 
     @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     @OneToMany(mappedBy = "movieCopy")
     private List<MovieCopyOrder> movieCopyOrders = new ArrayList<>();
 }
