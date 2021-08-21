@@ -45,6 +45,8 @@ public class Movie {
     @OneToMany(mappedBy = "movie", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.LAZY)
     private List<MovieRates> movieRates = new ArrayList<>();
 
+    @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     @OneToMany(mappedBy = "movie", cascade ={CascadeType.MERGE, CascadeType.PERSIST})
     private List<MovieCopy> copies = new ArrayList<>();
 }
