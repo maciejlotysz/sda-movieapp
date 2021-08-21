@@ -4,6 +4,7 @@ import com.maja.sdamovieapp.order.enums.OrderStatusEnum;
 import com.maja.sdamovieapp.user.entity.User;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -44,6 +45,7 @@ public class Order {
     private OrderStatusEnum orderStatus;
 
     @EqualsAndHashCode.Exclude
+    @ToString.Exclude
     @OneToMany(mappedBy = "order")
     private List<MovieCopyOrder> movieCopyOrders = new ArrayList<>();
 }
