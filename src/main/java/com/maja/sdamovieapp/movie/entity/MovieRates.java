@@ -1,5 +1,6 @@
 package com.maja.sdamovieapp.movie.entity;
 
+import com.maja.sdamovieapp.user.entity.User;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -21,6 +22,11 @@ public class MovieRates {
     @EqualsAndHashCode.Exclude
     @JoinColumn(name = "movie_id")
     private Movie movie;
+
+    @NotNull
+    @ManyToOne(optional = false)
+    @JoinColumn(name = "user_id")
+    private User userId;
 
     private int rate;
 
