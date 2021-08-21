@@ -1,5 +1,6 @@
 package com.maja.sdamovieapp.user.entity;
 
+import com.maja.sdamovieapp.movie.entity.MovieRates;
 import com.maja.sdamovieapp.order.entity.Order;
 import com.maja.sdamovieapp.user.enums.ClientTypeEnum;
 import lombok.Data;
@@ -10,7 +11,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Mapowanie bazodanowe użytkowników
@@ -57,4 +60,8 @@ public class User {
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Order> orders = new ArrayList<>();
+
+    @EqualsAndHashCode.Exclude
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private Set<MovieRates> rates = new HashSet<>();
 }
