@@ -15,21 +15,25 @@ public class DeliveryAddress {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
+    @NotNull
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private User user;
+
+    @Column(name = "is_default")
+    private boolean isDefault;
 
     @NotBlank
     private  String street;
 
-    @NotBlank
+    @NotNull
     @Column(name = "building_number")
-    private int buildingNumber;
+    private Integer buildingNumber;
 
     @Column(name = "appartement_number")
     private int appartementNumber;
 
-    @NotNull
+    @NotBlank
     @Column(name = "zip_code")
     private String zipCode;
 
