@@ -8,6 +8,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,14 +25,14 @@ public class Movie {
     @NotBlank
     private String tittle;
 
-    @NotBlank
+    @NotNull
     @Column(name = "premiere_year")
-    private int premiereYear;
+    private Integer premiereYear;
 
     @NotBlank
     private String director;
 
-    @NotBlank
+    @NotNull
     @Enumerated(EnumType.STRING)
     @Column(name = "movie_genre")
     private MovieGenreEnum movieGenre;
