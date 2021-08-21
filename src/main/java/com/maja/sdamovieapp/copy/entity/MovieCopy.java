@@ -8,8 +8,8 @@ import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Data
@@ -35,5 +35,5 @@ public class MovieCopy {
 
     @EqualsAndHashCode.Exclude
     @OneToMany(mappedBy = "movieCopy")
-    private Set<MovieCopyOrder> movieCopyOrders = new HashSet<>();
+    private List<MovieCopyOrder> movieCopyOrders = new ArrayList<>();
 }
