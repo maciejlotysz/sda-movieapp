@@ -25,8 +25,9 @@ public class MovieRates {
 
     @NotNull
     @ManyToOne(optional = false)
+    @EqualsAndHashCode.Exclude
     @JoinColumn(name = "user_id")
-    private User userId;
+    private User user;
 
     private int rate;
 
