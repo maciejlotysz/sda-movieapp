@@ -9,9 +9,10 @@ public enum MovieGenreEnum {
     FANTASY,
     THRILLER,
     HORROR,
+    HISTORY,
     FAMILY,
     COMEDY,
-    ROMANTIC,
+    ROMANCE,
     ROMANTIC_COMEDY,
     CRIME,
     DOCUMENTARY

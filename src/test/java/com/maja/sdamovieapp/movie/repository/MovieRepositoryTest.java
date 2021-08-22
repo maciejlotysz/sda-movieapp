@@ -34,7 +34,7 @@ class MovieRepositoryTest {
         MovieGenreEnum genre = MovieGenreEnum.FANTASY;
 
         Movie movie = new Movie();
-        movie.setTittle(tittle);
+        movie.setTitle(tittle);
         movie.setPremiereYear(premiereYear);
         movie.setMovieGenre(genre);
         movie.setDirector(director);
@@ -49,7 +49,7 @@ class MovieRepositoryTest {
         Movie foundMovie = foundMovieOptional.get();
 
         //then
-        assertThat(foundMovie.getTittle()).isEqualTo(movie.getTittle());
+        assertThat(foundMovie.getTitle()).isEqualTo(movie.getTitle());
         assertThat(foundMovie.getPremiereYear()).isEqualTo(movie.getPremiereYear());
     }
 
@@ -63,7 +63,7 @@ class MovieRepositoryTest {
         MovieGenreEnum genre = MovieGenreEnum.FANTASY;
 
         Movie movie = new Movie();
-        movie.setTittle(tittle);
+        movie.setTitle(tittle);
         movie.setPremiereYear(premiereYear);
         movie.setMovieGenre(genre);
         movie.setDirector(director);
@@ -93,7 +93,7 @@ class MovieRepositoryTest {
         List<MovieCopy> foundCopies = movieCopyRepository.findAll();
 
         //then
-        assertThat(foundMovie.getTittle()).isEqualTo(movie.getTittle());
+        assertThat(foundMovie.getTitle()).isEqualTo(movie.getTitle());
         assertThat(foundMovie.getPremiereYear()).isEqualTo(movie.getPremiereYear());
 
         assertThat(foundCopies.isEmpty()).isFalse();
