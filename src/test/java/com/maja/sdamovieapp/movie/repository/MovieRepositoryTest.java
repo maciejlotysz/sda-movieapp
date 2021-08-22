@@ -39,12 +39,12 @@ class MovieRepositoryTest {
         movie.setMovieGenre(genre);
         movie.setDirector(director);
 
-        Optional<Movie> foundMovieOptional = movieRepository.findMovieByTittle(tittle);
+        Optional<Movie> foundMovieOptional = movieRepository.findMovieByTitle(tittle);
         assertThat(foundMovieOptional.isEmpty()).isTrue();
 
         //when
         movieRepository.save(movie);
-        foundMovieOptional = movieRepository.findMovieByTittle(tittle);
+        foundMovieOptional = movieRepository.findMovieByTitle(tittle);
         assertThat(foundMovieOptional.isPresent()).isTrue();
         Movie foundMovie = foundMovieOptional.get();
 
@@ -80,13 +80,13 @@ class MovieRepositoryTest {
         copies.add(copy2);
         movie.setCopies(copies);
 
-        Optional<Movie> foundMovieOptional = movieRepository.findMovieByTittle(tittle);
+        Optional<Movie> foundMovieOptional = movieRepository.findMovieByTitle(tittle);
         assertThat(foundMovieOptional.isEmpty()).isTrue();
 
 
         //when
         movieRepository.save(movie);
-        foundMovieOptional = movieRepository.findMovieByTittle(tittle);
+        foundMovieOptional = movieRepository.findMovieByTitle(tittle);
         assertThat(foundMovieOptional.isPresent()).isTrue();
         Movie foundMovie = foundMovieOptional.get();
 
