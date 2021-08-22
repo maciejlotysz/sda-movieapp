@@ -66,12 +66,12 @@ class OrderRepositoryTest {
         var genre = MovieGenreEnum.FANTASY;
 
         Movie movie = getMovie(tittle, director, premiereYear, genre);
-        Optional<Movie> foundMovieOptional = movieRepository.findMovieByTittle(tittle);
+        Optional<Movie> foundMovieOptional = movieRepository.findMovieByTitle(tittle);
         assertThat(foundMovieOptional.isEmpty()).isTrue();
 
         //create related movieCopy
         MovieCopy copy = getMovieCopy(movie);
-        Optional<MovieCopy> foundMovieCopyOptional = movieCopyRepository.findByMovie_Tittle(tittle);
+        Optional<MovieCopy> foundMovieCopyOptional = movieCopyRepository.findByMovie_Title(tittle);
         assertThat(foundMovieCopyOptional.isEmpty()).isTrue();
 
         //create order
@@ -96,11 +96,11 @@ class OrderRepositoryTest {
         assertThat(foundUserOptional.isPresent()).isTrue();
 
         movieRepository.save(movie);
-        foundMovieOptional = movieRepository.findMovieByTittle(tittle);
+        foundMovieOptional = movieRepository.findMovieByTitle(tittle);
         assertThat(foundMovieOptional.isPresent()).isTrue();
 
         movieCopyRepository.save(copy);
-        foundMovieCopyOptional = movieCopyRepository.findByMovie_Tittle(tittle);
+        foundMovieCopyOptional = movieCopyRepository.findByMovie_Title(tittle);
         assertThat(foundMovieCopyOptional.isPresent()).isTrue();
         MovieCopy foundCopy = foundMovieCopyOptional.get();
 
@@ -114,8 +114,8 @@ class OrderRepositoryTest {
                 () -> assertThat(foundOrder.getUser().getEmail()).isEqualTo(user.getEmail()),
                 () -> assertThat(foundOrder.getMovieCopyOrders().get(0).getMovieCopy().getCopyId())
                         .isEqualTo(foundCopy.getMovieCopyOrders().get(0).getMovieCopy().getCopyId()),
-                () -> assertThat(foundOrder.getMovieCopyOrders().get(0).getMovieCopy().getMovie().getTittle())
-                        .isEqualTo(movie.getTittle()),
+                () -> assertThat(foundOrder.getMovieCopyOrders().get(0).getMovieCopy().getMovie().getTitle())
+                        .isEqualTo(movie.getTitle()),
                 () -> assertThat(foundOrder.getMovieCopyOrders().get(0).getMovieCopy().getCopyId()).isEqualTo(copy.getCopyId()),
                 () -> assertThat(foundCopy.getMovieCopyOrders().get(0).getOrder().getUser().getClientType()).isEqualTo(user.getClientType())
         );
@@ -157,7 +157,7 @@ class OrderRepositoryTest {
 
     private Movie getMovie(String tittle, String director, int premiereYear, MovieGenreEnum genre) {
         Movie movie = new Movie();
-        movie.setTittle(tittle);
+        movie.setTitle(tittle);
         movie.setPremiereYear(premiereYear);
         movie.setMovieGenre(genre);
         movie.setDirector(director);
