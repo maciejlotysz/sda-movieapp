@@ -23,7 +23,7 @@ public class Movie {
     private Long id;
 
     @NotBlank
-    private String tittle;
+    private String title;
 
     @NotNull
     @Column(name = "premiere_year")

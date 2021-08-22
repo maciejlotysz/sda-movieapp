@@ -34,22 +34,22 @@ class MovieRepositoryTest {
         MovieGenreEnum genre = MovieGenreEnum.FANTASY;
 
         Movie movie = new Movie();
-        movie.setTittle(tittle);
+        movie.setTitle(tittle);
         movie.setPremiereYear(premiereYear);
         movie.setMovieGenre(genre);
         movie.setDirector(director);
 
-        Optional<Movie> foundMovieOptional = movieRepository.findMovieByTittle(tittle);
+        Optional<Movie> foundMovieOptional = movieRepository.findMovieByTitle(tittle);
         assertThat(foundMovieOptional.isEmpty()).isTrue();
 
         //when
         movieRepository.save(movie);
-        foundMovieOptional = movieRepository.findMovieByTittle(tittle);
+        foundMovieOptional = movieRepository.findMovieByTitle(tittle);
         assertThat(foundMovieOptional.isPresent()).isTrue();
         Movie foundMovie = foundMovieOptional.get();
 
         //then
-        assertThat(foundMovie.getTittle()).isEqualTo(movie.getTittle());
+        assertThat(foundMovie.getTitle()).isEqualTo(movie.getTitle());
         assertThat(foundMovie.getPremiereYear()).isEqualTo(movie.getPremiereYear());
     }
 
@@ -63,7 +63,7 @@ class MovieRepositoryTest {
         MovieGenreEnum genre = MovieGenreEnum.FANTASY;
 
         Movie movie = new Movie();
-        movie.setTittle(tittle);
+        movie.setTitle(tittle);
         movie.setPremiereYear(premiereYear);
         movie.setMovieGenre(genre);
         movie.setDirector(director);
@@ -80,20 +80,20 @@ class MovieRepositoryTest {
         copies.add(copy2);
         movie.setCopies(copies);
 
-        Optional<Movie> foundMovieOptional = movieRepository.findMovieByTittle(tittle);
+        Optional<Movie> foundMovieOptional = movieRepository.findMovieByTitle(tittle);
         assertThat(foundMovieOptional.isEmpty()).isTrue();
 
 
         //when
         movieRepository.save(movie);
-        foundMovieOptional = movieRepository.findMovieByTittle(tittle);
+        foundMovieOptional = movieRepository.findMovieByTitle(tittle);
         assertThat(foundMovieOptional.isPresent()).isTrue();
         Movie foundMovie = foundMovieOptional.get();
 
         List<MovieCopy> foundCopies = movieCopyRepository.findAll();
 
         //then
-        assertThat(foundMovie.getTittle()).isEqualTo(movie.getTittle());
+        assertThat(foundMovie.getTitle()).isEqualTo(movie.getTitle());
         assertThat(foundMovie.getPremiereYear()).isEqualTo(movie.getPremiereYear());
 
         assertThat(foundCopies.isEmpty()).isFalse();
