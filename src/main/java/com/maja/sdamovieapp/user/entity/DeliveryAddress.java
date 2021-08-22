@@ -28,7 +28,7 @@ public class DeliveryAddress {
 
     @NotNull
     @Column(name = "building_number")
-    private Integer buildingNumber;
+    private String buildingNumber;
 
     @Column(name = "appartement_number")
     private int appartementNumber;

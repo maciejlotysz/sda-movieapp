@@ -1,5 +1,6 @@
 package com.maja.sdamovieapp.copy.entity;
 
+import com.maja.sdamovieapp.copy.enums.CopyStatusEnum;
 import com.maja.sdamovieapp.copy.enums.DiscTypeEnum;
 import com.maja.sdamovieapp.movie.entity.Movie;
 import com.maja.sdamovieapp.order.entity.MovieCopyOrder;
@@ -11,6 +12,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Entity
 @Data
@@ -27,7 +29,11 @@ public class MovieCopy {
     private Movie movie;
 
     @Column(name = "copy_id", unique = true)
-    private String copyId;
+    private UUID copyId;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private CopyStatusEnum status;
 
     @NotNull
     @Enumerated(EnumType.STRING)
