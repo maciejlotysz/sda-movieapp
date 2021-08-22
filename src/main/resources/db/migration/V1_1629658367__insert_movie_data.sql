@@ -29,8 +29,6 @@ INSERT INTO movies (title, premiere_year, director, movie_genre, description) VA
 INSERT INTO movies (title, premiere_year, director, movie_genre, description) VALUES
 ('Pamięć absolutna', 1990, 'Paul Verhoeven', 'SCI-FI', null);
 INSERT INTO movies (title, premiere_year, director, movie_genre, description) VALUES
-('Pamięć absolutna', 1990, 'Paul Verhoeven', 'SCI-FI', null);
-INSERT INTO movies (title, premiere_year, director, movie_genre, description) VALUES
 ('Love, Rosie', 2014, 'Christian Ditter', 'ROMANCE', null);
 INSERT INTO movies (title, premiere_year, director, movie_genre, description) VALUES
 ('Pewnego Razu... w Hollywood', 2019, 'Quentin Tarantino', 'COMEDY', null);

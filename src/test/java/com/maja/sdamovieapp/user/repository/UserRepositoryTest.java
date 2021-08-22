@@ -12,7 +12,6 @@ import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 @DataJpaTest
 class UserRepositoryTest {
@@ -70,7 +69,7 @@ class UserRepositoryTest {
         DeliveryAddress address = new DeliveryAddress();
         address.setUser(user);
         address.setStreet("Konwaliowa");
-        address.setBuildingNumber(10);
+        address.setBuildingNumber("10");
         address.setZipCode("02-002");
         address.setCity("Minas Tirith");
         return address;

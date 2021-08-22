@@ -150,7 +150,6 @@ class OrderRepositoryTest {
     private MovieCopy getMovieCopy(Movie movie) {
         MovieCopy copy = new MovieCopy();
         copy.setMovie(movie);
-        copy.setCopyId("0334gdv98");
         copy.setDiscType(DiscTypeEnum.BLU_RAY);
         return copy;
     }
