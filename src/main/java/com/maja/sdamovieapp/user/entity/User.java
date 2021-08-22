@@ -36,7 +36,7 @@ public class User {
     private String lastName;
 
     @NotNull
-    @Size(min = 6, max = 12)
+    @Size(min = 6, max = 50)
     @Column(unique = true)
     private String login;
 
