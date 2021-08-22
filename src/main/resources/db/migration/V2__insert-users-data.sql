@@ -20,3 +20,4 @@ INSERT INTO users (first_name, last_name, email, password, is_active, client_typ
 ('Tomasz', 'Bocian', 'klekletomek@o2.pl', true, 'SILVER');
 INSERT INTO users (first_name, last_name, email, password, is_active, client_type) VALUES
 ('Roma', 'Zielona', 'zielroma@gmail.com', true, 'GOLD');
+ 'zielroma@gmail.com', true, GOLD);
