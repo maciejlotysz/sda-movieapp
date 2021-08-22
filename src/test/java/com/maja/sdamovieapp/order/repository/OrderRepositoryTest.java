@@ -66,7 +66,7 @@ class OrderRepositoryTest {
         var genre = MovieGenreEnum.FANTASY;
 
         Movie movie = getMovie(tittle, director, premiereYear, genre);
-        Optional<Movie> foundMovieOptional = movieRepository.findMovieByTittle(tittle);
+        Optional<Movie> foundMovieOptional = movieRepository.findMovieByTitle(tittle);
         assertThat(foundMovieOptional.isEmpty()).isTrue();
 
         //create related movieCopy
@@ -96,7 +96,7 @@ class OrderRepositoryTest {
         assertThat(foundUserOptional.isPresent()).isTrue();
 
         movieRepository.save(movie);
-        foundMovieOptional = movieRepository.findMovieByTittle(tittle);
+        foundMovieOptional = movieRepository.findMovieByTitle(tittle);
         assertThat(foundMovieOptional.isPresent()).isTrue();
 
         movieCopyRepository.save(copy);

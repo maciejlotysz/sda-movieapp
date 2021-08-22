@@ -13,6 +13,6 @@ public enum MovieGenreEnum {
     COMEDY,
     ROMANTIC,
     ROMANTIC_COMEDY,
-    CRIME_STORY,
+    CRIME,
     DOCUMENTARY
 }
