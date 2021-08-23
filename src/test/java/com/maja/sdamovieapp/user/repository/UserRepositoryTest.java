@@ -1,11 +1,13 @@
 package com.maja.sdamovieapp.user.repository;
 
+import com.maja.sdamovieapp.config.ContainersEnvironment;
 import com.maja.sdamovieapp.user.entity.DeliveryAddress;
 import com.maja.sdamovieapp.user.entity.User;
 import com.maja.sdamovieapp.user.enums.ClientTypeEnum;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,8 +15,9 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DataJpaTest
-class UserRepositoryTest {
+@ActiveProfiles("test")
+@SpringBootTest
+class UserRepositoryTest extends ContainersEnvironment {
 
     @Autowired
     private UserRepository userRepository;
