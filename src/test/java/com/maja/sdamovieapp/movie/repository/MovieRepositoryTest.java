@@ -1,13 +1,16 @@
 package com.maja.sdamovieapp.movie.repository;
 
+import com.maja.sdamovieapp.config.ContainersEnvironment;
 import com.maja.sdamovieapp.copy.entity.MovieCopy;
+import com.maja.sdamovieapp.copy.enums.CopyStatusEnum;
 import com.maja.sdamovieapp.copy.enums.DiscTypeEnum;
 import com.maja.sdamovieapp.copy.repository.MovieCopyRepository;
 import com.maja.sdamovieapp.movie.entity.Movie;
 import com.maja.sdamovieapp.movie.enums.MovieGenreEnum;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,8 +18,9 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
-@DataJpaTest
-class MovieRepositoryTest {
+@ActiveProfiles("test")
+@SpringBootTest
+class MovieRepositoryTest extends ContainersEnvironment {
 
     @Autowired
     private MovieRepository movieRepository;
@@ -70,9 +74,11 @@ class MovieRepositoryTest {
 
         MovieCopy copy1 = new MovieCopy();
         copy1.setMovie(movie);
+        copy1.setStatus(CopyStatusEnum.AVAILABLE);
         copy1.setDiscType(DiscTypeEnum.BLU_RAY);
         MovieCopy copy2 = new MovieCopy();
         copy2.setMovie(movie);
+        copy2.setStatus(CopyStatusEnum.AVAILABLE);
         copy2.setDiscType(DiscTypeEnum.BLU_RAY);
 
         List<MovieCopy> copies = new ArrayList<>();
@@ -97,6 +103,5 @@ class MovieRepositoryTest {
         assertThat(foundMovie.getPremiereYear()).isEqualTo(movie.getPremiereYear());
 
         assertThat(foundCopies.isEmpty()).isFalse();
-        foundCopies.forEach(movieCopy -> assertThat(movieCopy.getCopyId()).isNotNull());
     }
 }
