@@ -31,7 +31,7 @@ public class DeliveryAddress {
     private String buildingNumber;
 
     @Column(name = "appartement_number")
-    private int appartementNumber;
+    private String appartementNumber;
 
     @NotBlank
     @Column(name = "zip_code")

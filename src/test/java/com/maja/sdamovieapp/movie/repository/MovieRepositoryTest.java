@@ -97,5 +97,6 @@ class MovieRepositoryTest {
         assertThat(foundMovie.getPremiereYear()).isEqualTo(movie.getPremiereYear());
 
         assertThat(foundCopies.isEmpty()).isFalse();
+        foundCopies.forEach(movieCopy -> assertThat(movieCopy.getCopyId()).isNotNull());
     }
 }

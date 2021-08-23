@@ -5,7 +5,7 @@ CREATE TABLE delivery_addresses
     is_default          boolean,
     street              VARCHAR(50) not null,
     building_number     VARCHAR(10) not null,
-    appartement_number  BIGINT,
+    appartement_number  VARCHAR (10),
     zip_code            VARCHAR(10) not null,
     city                VARCHAR(50) not null,
     CONSTRAINT delivery_addresses__user_id_fk

@@ -23,11 +23,11 @@ INSERT INTO movies (title, premiere_year, director, movie_genre, description) VA
 INSERT INTO movies (title, premiere_year, director, movie_genre, description) VALUES
 ('Lista Schindlera', 1993, 'Steven Spielberg', 'HISTORY', null);
 INSERT INTO movies (title, premiere_year, director, movie_genre, description) VALUES
-('Strażnicy Galaktyki', 2014, 'James Gunn', 'SCI-FI', null);
+('Strażnicy Galaktyki', 2014, 'James Gunn', 'SCI_FI', null);
 INSERT INTO movies (title, premiere_year, director, movie_genre, description) VALUES
 ('RoboCop', 1987, 'Paul Verhoeven', 'ACTION', null);
 INSERT INTO movies (title, premiere_year, director, movie_genre, description) VALUES
-('Pamięć absolutna', 1990, 'Paul Verhoeven', 'SCI-FI', null);
+('Pamięć absolutna', 1990, 'Paul Verhoeven', 'SCI_FI', null);
 INSERT INTO movies (title, premiere_year, director, movie_genre, description) VALUES
 ('Love, Rosie', 2014, 'Christian Ditter', 'ROMANCE', null);
 INSERT INTO movies (title, premiere_year, director, movie_genre, description) VALUES

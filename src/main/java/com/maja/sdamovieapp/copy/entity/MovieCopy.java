@@ -4,9 +4,7 @@ import com.maja.sdamovieapp.copy.enums.CopyStatusEnum;
 import com.maja.sdamovieapp.copy.enums.DiscTypeEnum;
 import com.maja.sdamovieapp.movie.entity.Movie;
 import com.maja.sdamovieapp.order.entity.MovieCopyOrder;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
