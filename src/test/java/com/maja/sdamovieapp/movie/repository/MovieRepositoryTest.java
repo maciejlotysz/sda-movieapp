@@ -32,9 +32,9 @@ class MovieRepositoryTest extends ContainersEnvironment {
     void shouldSaveMovieInDatabase() {
 
         //given
-        String tittle = "LOTR: The Return of The King";
+        String tittle = "LOTR: The Two Towers";
         String director = "Peter Jackson";
-        int premiereYear = 2003;
+        int premiereYear = 2002;
         MovieGenreEnum genre = MovieGenreEnum.FANTASY;
 
         Movie movie = new Movie();
