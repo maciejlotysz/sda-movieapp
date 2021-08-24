@@ -5,7 +5,3 @@ DELETE FROM movie_copy_orders;
 DELETE FROM orders;
 DELETE FROM users;
 DELETE FROM movies;
-
-
-
-
