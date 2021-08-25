@@ -1,4 +1,4 @@
-package com.maja.sdamovieapp.user.model;
+package com.maja.sdamovieapp.user.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
