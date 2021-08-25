@@ -5,7 +5,7 @@ CREATE TABLE users
     last_name       VARCHAR (50) not null,
     login           VARCHAR (50) not null unique,
     email           VARCHAR (75) not null unique,
-    password        VARCHAR (30) not null,
+    password        VARCHAR (100) not null,
     is_active       boolean not null,
     client_type     VARCHAR(30) not null
 )
