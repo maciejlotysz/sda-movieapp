@@ -3,6 +3,7 @@ package com.maja.sdamovieapp.user.entity;
 import com.maja.sdamovieapp.movie.entity.MovieRates;
 import com.maja.sdamovieapp.order.entity.Order;
 import com.maja.sdamovieapp.user.enums.ClientTypeEnum;
+import com.maja.sdamovieapp.user.enums.RoleNameEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -11,6 +12,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,6 +48,14 @@ public class User {
 
     @NotBlank
     private String password;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    private RoleNameEnum role;
+
+    @NotNull
+    @Column(name = "created_at")
+    private LocalDateTime createdAt;
 
     @NotNull
     @Column(name = "is_active")
