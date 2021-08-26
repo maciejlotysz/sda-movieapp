@@ -1,5 +1,6 @@
 package com.maja.sdamovieapp.user.controller;
 
+import com.maja.sdamovieapp.application.constants.ErrorCode;
 import com.maja.sdamovieapp.user.dto.RegisterRequestDTO;
 import com.maja.sdamovieapp.user.service.RegisterService;
 import lombok.RequiredArgsConstructor;
@@ -22,9 +23,10 @@ public class RegistrationController {
     /**
      * Endpoint do rejestracji użytkownika
      */
+
     @PostMapping("/signup")
     public ResponseEntity<String> signup(@RequestBody @Valid RegisterRequestDTO registerRequestDTO) {
         registerService.signup(registerRequestDTO);
-        return new ResponseEntity<>("Rejestracja przebiegła pomyślnie!", HttpStatus.CREATED);
+        return new ResponseEntity<>(ErrorCode.REGISTRATION_SUCCEED.internalCode, HttpStatus.CREATED);
     }
 }
