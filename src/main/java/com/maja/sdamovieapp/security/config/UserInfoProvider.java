@@ -11,7 +11,6 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Optional;
 
 @Component
 @RequiredArgsConstructor
@@ -22,9 +21,7 @@ public class UserInfoProvider implements UserDetailsService {
     @Override
     @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        Optional<User> userOptional = userRepository.findUserByEmail(email);
-
-        return userOptional
+        return userRepository.findUserByEmail(email)
                 .filter(User::isActive)
                 .map(this::map)
                 .orElseThrow(() -> new UsernameNotFoundException(

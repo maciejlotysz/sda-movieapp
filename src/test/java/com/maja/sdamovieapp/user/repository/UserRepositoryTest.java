@@ -4,11 +4,13 @@ import com.maja.sdamovieapp.config.ContainersEnvironment;
 import com.maja.sdamovieapp.user.entity.DeliveryAddress;
 import com.maja.sdamovieapp.user.entity.User;
 import com.maja.sdamovieapp.user.enums.ClientTypeEnum;
+import com.maja.sdamovieapp.user.enums.RoleNameEnum;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -34,21 +36,23 @@ class UserRepositoryTest extends ContainersEnvironment {
         var login = "killerAxe";
         var email = "gimli@erebor.com";
         var password = "password";
+        var roleNameEnum = RoleNameEnum.ROLE_USER;
         var clientTypeEnum = ClientTypeEnum.STANDARD;
+        var createdAt = LocalDateTime.now();
 
         //set User
-        User user = getUser(lastName, gimli, login, email, password, clientTypeEnum);
+        User user = getUser(lastName, gimli, login, email, password, createdAt, clientTypeEnum, roleNameEnum);
         //set address
         DeliveryAddress address = getDeliveryAddress(user);
         //set list of addresses
         setAddressesList(user, address);
 
-        Optional<User> foundUserOptional = userRepository.findUserByLastName(lastName);
+        Optional<User> foundUserOptional = userRepository.findUserByEmail(email);
         assertThat(foundUserOptional.isEmpty()).isTrue();
 
         //when
         userRepository.save(user);
-        foundUserOptional = userRepository.findUserByLastName(lastName);
+        foundUserOptional = userRepository.findUserByEmail(email);
         assertThat(foundUserOptional.isPresent()).isTrue();
         User foundUser = foundUserOptional.get();
 
@@ -83,15 +87,19 @@ class UserRepositoryTest extends ContainersEnvironment {
                          String login,
                          String email,
                          String password,
-                         ClientTypeEnum clientTypeEnum) {
+                         LocalDateTime createdAt,
+                         ClientTypeEnum clientTypeEnum,
+                         RoleNameEnum roleNameEnum) {
         User user = new User();
         user.setFirstName(gimli);
         user.setLastName(lastName);
         user.setLogin(login);
         user.setEmail(email);
         user.setPassword(password);
+        user.setCreatedAt(createdAt);
         user.setActive(true);
         user.setClientType(clientTypeEnum);
+        user.setRole(roleNameEnum);
         return user;
     }
 }
