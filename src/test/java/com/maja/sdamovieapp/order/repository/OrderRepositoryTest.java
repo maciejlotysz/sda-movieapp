@@ -13,6 +13,7 @@ import com.maja.sdamovieapp.order.entity.Order;
 import com.maja.sdamovieapp.order.enums.OrderStatusEnum;
 import com.maja.sdamovieapp.user.entity.User;
 import com.maja.sdamovieapp.user.enums.ClientTypeEnum;
+import com.maja.sdamovieapp.user.enums.RoleNameEnum;
 import com.maja.sdamovieapp.user.repository.UserRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +22,7 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -57,10 +59,12 @@ class OrderRepositoryTest extends ContainersEnvironment {
         var email = "gimli@erebor.com";
         var password = "password";
         var isActive = true;
+        var roleNameEnum = RoleNameEnum.ROLE_USER;
         var clientTypeEnum = ClientTypeEnum.STANDARD;
+        var createdAt = LocalDateTime.now();
 
-        User user = getUser(lastName, firstName, login, email, password, isActive, clientTypeEnum);
-        Optional<User> foundUserOptional = userRepository.findUserByLastName(lastName);
+        User user = getUser(lastName, firstName, login, email, password, isActive, clientTypeEnum, roleNameEnum, createdAt);
+        Optional<User> foundUserOptional = userRepository.findUserByEmail(email);
         assertThat(foundUserOptional.isEmpty()).isTrue();
 
         //create movie
@@ -96,7 +100,7 @@ class OrderRepositoryTest extends ContainersEnvironment {
 
         //when
         userRepository.save(user);
-        foundUserOptional = userRepository.findUserByLastName(lastName);
+        foundUserOptional = userRepository.findUserByEmail(email);
         assertThat(foundUserOptional.isPresent()).isTrue();
 
         movieRepository.save(movie);
@@ -174,7 +178,9 @@ class OrderRepositoryTest extends ContainersEnvironment {
                          String email,
                          String password,
                          boolean isActive,
-                         ClientTypeEnum clientTypeEnum) {
+                         ClientTypeEnum clientTypeEnum,
+                         RoleNameEnum roleNameEnum,
+                         LocalDateTime localDateTime) {
         User user = new User();
         user.setFirstName(firstName);
         user.setLastName(lastName);
@@ -183,6 +189,8 @@ class OrderRepositoryTest extends ContainersEnvironment {
         user.setPassword(password);
         user.setActive(isActive);
         user.setClientType(clientTypeEnum);
+        user.setRole(roleNameEnum);
+        user.setCreatedAt(localDateTime);
         return user;
     }
 }
