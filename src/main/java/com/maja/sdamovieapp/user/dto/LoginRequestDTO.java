@@ -1,14 +1,10 @@
 package com.maja.sdamovieapp.user.dto;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.Value;
 
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
+@Value
 public class LoginRequestDTO {
 
-    private String email;
-    private String password;
+    String email;
+    String password;
 }

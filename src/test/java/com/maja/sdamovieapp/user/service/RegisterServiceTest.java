@@ -29,13 +29,6 @@ class RegisterServiceTest extends ContainersEnvironment {
     @Autowired
     private UserRepository userRepository;
 
-    RegisterRequestDTO requestDTO = new RegisterRequestDTO(
-            "Jan",
-            "Testowy",
-            "testowy",
-            "test@test.pl",
-            "Test1!"
-    );
 
     @Test
     @DisplayName("Rejestruje nowego uzytkownika i zapisuje do bazy danych")
@@ -43,12 +36,11 @@ class RegisterServiceTest extends ContainersEnvironment {
     void shouldRegisterNewUserAndSaveIntoDB() {
 
         //when
-        registerService.signup(requestDTO);
+        registerService.signup(getRequestDTO());
 
         //then
         assertThat(userRepository.findUserByEmail("test@test.pl").get().getEmail())
-                .isEqualTo(requestDTO.getEmail());
-
+                .isEqualTo(getRequestDTO().getEmail());
     }
 
     @Test
@@ -69,7 +61,7 @@ class RegisterServiceTest extends ContainersEnvironment {
         userRepository.save(user);
 
         //when&then
-        assertThrows(UserAlreadyExistException.class, () -> registerService.signup(requestDTO));
+        assertThrows(UserAlreadyExistException.class, () -> registerService.signup(getRequestDTO()));
     }
 
     @Test
@@ -90,7 +82,7 @@ class RegisterServiceTest extends ContainersEnvironment {
         userRepository.save(user);
 
         //when&then
-        assertThrows(UserAlreadyExistException.class, () -> registerService.signup(requestDTO));
+        assertThrows(UserAlreadyExistException.class, () -> registerService.signup(getRequestDTO()));
     }
 
     @Test
@@ -107,11 +99,21 @@ class RegisterServiceTest extends ContainersEnvironment {
         var clientTypeEnum = ClientTypeEnum.STANDARD;
         var createdAt = LocalDateTime.now();
 
-        User user = getUser(lastName, firstName, login, email, password, createdAt, clientTypeEnum, roleNameEnum);
+        var user = getUser(lastName, firstName, login, email, password, createdAt, clientTypeEnum, roleNameEnum);
         userRepository.save(user);
 
         //when&then
-        assertThrows(UserAlreadyExistException.class, () -> registerService.signup(requestDTO));
+        assertThrows(UserAlreadyExistException.class, () -> registerService.signup(getRequestDTO()));
+    }
+
+    private RegisterRequestDTO getRequestDTO() {
+        return new RegisterRequestDTO(
+                "Jan",
+                "Testowy",
+                "testowy",
+                "test@test.pl",
+                "Test1!"
+        );
     }
 
     private User getUser(String lastName,
