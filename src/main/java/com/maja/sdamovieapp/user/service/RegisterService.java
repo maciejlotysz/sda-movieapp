@@ -39,7 +39,7 @@ public class RegisterService {
         mappedUser.setPassword(passwordEncoder.encode(requestDTO.getPassword()));
         mappedUser.setClientType(ClientTypeEnum.STANDARD);
         mappedUser.setRole(RoleNameEnum.ROLE_USER);
-        mappedUser.setActive(false);
+        mappedUser.setActive(true);
         mappedUser.setCreatedAt(now());
         userRepository.save(mappedUser);
     }
