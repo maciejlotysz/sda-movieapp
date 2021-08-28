@@ -4,6 +4,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -40,9 +42,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .csrf().disable()
                 .authorizeRequests()
                     .antMatchers(HttpMethod.GET, "/api/v1/movie/**").permitAll()
-                    .antMatchers("/api/v1/movieapp").permitAll()
+                    .antMatchers(HttpMethod.GET,"/api/v1/movieapp").permitAll()
                     .antMatchers("/api/v1/auth/**").permitAll()
-                    .antMatchers("/api/v1/signin").permitAll()
+                    .antMatchers("/api/v1/login").permitAll()
                     .antMatchers(SWAGGER_PATHS).permitAll()
                     .antMatchers(ADMIN_PATHS).hasRole("ADMIN")
                 .anyRequest().authenticated()
@@ -58,5 +60,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
+    }
+
+    @Bean(BeanIds.AUTHENTICATION_MANAGER)
+    @Override
+    public AuthenticationManager authenticationManagerBean() throws Exception {
+        return super.authenticationManagerBean();
     }
 }

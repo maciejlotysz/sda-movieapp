@@ -1,5 +1,6 @@
 package com.maja.sdamovieapp.security.config;
 
+import com.maja.sdamovieapp.application.constants.ErrorCode;
 import com.maja.sdamovieapp.user.entity.User;
 import com.maja.sdamovieapp.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
@@ -24,8 +25,7 @@ public class UserInfoProvider implements UserDetailsService {
         return userRepository.findUserByEmail(email)
                 .filter(User::isActive)
                 .map(this::map)
-                .orElseThrow(() -> new UsernameNotFoundException(
-                        String.format("Username with email %s not found", email)));
+                .orElseThrow(() -> new UsernameNotFoundException(ErrorCode.USER_NOT_FOUND.internalCode));
     }
 
     private UserInfo map(User user) {

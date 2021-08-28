@@ -2,11 +2,10 @@ package com.maja.sdamovieapp.user.service;
 
 import com.maja.sdamovieapp.application.constants.ErrorCode;
 import com.maja.sdamovieapp.user.dto.RegisterRequestDTO;
-import com.maja.sdamovieapp.user.entity.User;
 import com.maja.sdamovieapp.user.enums.ClientTypeEnum;
 import com.maja.sdamovieapp.user.enums.RoleNameEnum;
 import com.maja.sdamovieapp.user.exceptions.UserAlreadyExistException;
-import com.maja.sdamovieapp.user.mapper.RegisterUserMapper;
+import com.maja.sdamovieapp.user.mapper.UserMapper;
 import com.maja.sdamovieapp.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,7 +22,7 @@ public class RegisterService {
 
     private final PasswordEncoder passwordEncoder;
     private final UserRepository userRepository;
-    private final RegisterUserMapper registerUserMapper;
+    private final UserMapper userMapper;
 
     @Transactional
     public void signup(RegisterRequestDTO requestDTO) {
@@ -36,7 +35,7 @@ public class RegisterService {
                     }
                 });
 
-        User mappedUser = registerUserMapper.mapToUser(requestDTO);
+        var mappedUser = userMapper.mapToUser(requestDTO);
         mappedUser.setPassword(passwordEncoder.encode(requestDTO.getPassword()));
         mappedUser.setClientType(ClientTypeEnum.STANDARD);
         mappedUser.setRole(RoleNameEnum.ROLE_USER);
