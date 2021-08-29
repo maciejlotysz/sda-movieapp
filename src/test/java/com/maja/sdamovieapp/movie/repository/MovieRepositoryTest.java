@@ -12,9 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -32,25 +32,15 @@ class MovieRepositoryTest extends ContainersEnvironment {
     void shouldSaveMovieInDatabase() {
 
         //given
-        String tittle = "LOTR: The Return of The King";
-        String director = "Peter Jackson";
-        int premiereYear = 2003;
-        MovieGenreEnum genre = MovieGenreEnum.FANTASY;
-
-        Movie movie = new Movie();
-        movie.setTitle(tittle);
-        movie.setPremiereYear(premiereYear);
-        movie.setMovieGenre(genre);
-        movie.setDirector(director);
-
-        Optional<Movie> foundMovieOptional = movieRepository.findMovieByTitle(tittle);
+        var movie = getMovie();
+        var foundMovieOptional = movieRepository.findMovieByTitle(getMovie().getTitle());
         assertThat(foundMovieOptional.isEmpty()).isTrue();
 
         //when
         movieRepository.save(movie);
-        foundMovieOptional = movieRepository.findMovieByTitle(tittle);
+        foundMovieOptional = movieRepository.findMovieByTitle(getMovie().getTitle());
         assertThat(foundMovieOptional.isPresent()).isTrue();
-        Movie foundMovie = foundMovieOptional.get();
+        var foundMovie = foundMovieOptional.get();
 
         //then
         assertThat(foundMovie.getTitle()).isEqualTo(movie.getTitle());
@@ -61,47 +51,48 @@ class MovieRepositoryTest extends ContainersEnvironment {
     void shouldSaveListOfCopiesInMovieTable() {
 
         //given
-        String tittle = "LOTR: The Return of The King";
-        String director = "Peter Jackson";
-        int premiereYear = 2003;
-        MovieGenreEnum genre = MovieGenreEnum.FANTASY;
-
-        Movie movie = new Movie();
-        movie.setTitle(tittle);
-        movie.setPremiereYear(premiereYear);
-        movie.setMovieGenre(genre);
-        movie.setDirector(director);
-
-        MovieCopy copy1 = new MovieCopy();
-        copy1.setMovie(movie);
-        copy1.setStatus(CopyStatusEnum.AVAILABLE);
-        copy1.setDiscType(DiscTypeEnum.BLU_RAY);
-        MovieCopy copy2 = new MovieCopy();
-        copy2.setMovie(movie);
-        copy2.setStatus(CopyStatusEnum.AVAILABLE);
-        copy2.setDiscType(DiscTypeEnum.BLU_RAY);
-
-        List<MovieCopy> copies = new ArrayList<>();
-        copies.add(copy1);
-        copies.add(copy2);
-        movie.setCopies(copies);
-
-        Optional<Movie> foundMovieOptional = movieRepository.findMovieByTitle(tittle);
+        var movie = getMovie();
+        var copy1 = getCopy(movie);
+        var copy2 = getCopy(movie);
+        getCopiesList(movie, copy1, copy2);
+        var foundMovieOptional = movieRepository.findMovieByTitle(getMovie().getTitle());
         assertThat(foundMovieOptional.isEmpty()).isTrue();
-
 
         //when
         movieRepository.save(movie);
-        foundMovieOptional = movieRepository.findMovieByTitle(tittle);
+        foundMovieOptional = movieRepository.findMovieByTitle(getMovie().getTitle());
         assertThat(foundMovieOptional.isPresent()).isTrue();
-        Movie foundMovie = foundMovieOptional.get();
-
-        List<MovieCopy> foundCopies = movieCopyRepository.findAll();
+        var foundMovie = foundMovieOptional.get();
+        var foundCopies = movieCopyRepository.findAll();
 
         //then
         assertThat(foundMovie.getTitle()).isEqualTo(movie.getTitle());
         assertThat(foundMovie.getPremiereYear()).isEqualTo(movie.getPremiereYear());
-
         assertThat(foundCopies.isEmpty()).isFalse();
+    }
+
+    private void getCopiesList(Movie movie, MovieCopy copy1, MovieCopy copy2) {
+        List<MovieCopy> copies = new ArrayList<>();
+        copies.add(copy1);
+        copies.add(copy2);
+        movie.setCopies(copies);
+    }
+
+    private MovieCopy getCopy(Movie movie) {
+        MovieCopy copy = new MovieCopy();
+        copy.setMovie(movie);
+        copy.setStatus(CopyStatusEnum.AVAILABLE);
+        copy.setDiscType(DiscTypeEnum.BLU_RAY);
+        return copy;
+    }
+
+    private Movie getMovie() {
+        Movie movie = new Movie();
+        movie.setTitle("LOTR: The Return of The King");
+        movie.setPremiereYear(2003);
+        movie.setMovieGenre(MovieGenreEnum.FANTASY);
+        movie.setDirector("Peter Jackson");
+        movie.setAddedAt(Instant.now());
+        return movie;
     }
 }

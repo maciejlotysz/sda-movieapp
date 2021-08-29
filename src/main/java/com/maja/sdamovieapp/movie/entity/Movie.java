@@ -10,6 +10,7 @@ import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +40,10 @@ public class Movie {
 
     @Size(max = 500)
     private String description;
+
+    @NotNull
+    @Column(name = "added_at")
+    private Instant addedAt;
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude

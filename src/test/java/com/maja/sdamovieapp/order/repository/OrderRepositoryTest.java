@@ -21,11 +21,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDate;
+import java.time.Instant;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static java.time.LocalDate.now;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -53,69 +52,46 @@ class OrderRepositoryTest extends ContainersEnvironment {
 
         //given
         //create user
-        var lastName = "Syn Gloina";
-        var firstName = "Gimli";
-        var login = "killerAxe";
-        var email = "gimli@erebor.com";
-        var password = "password";
-        var isActive = true;
-        var roleNameEnum = RoleNameEnum.ROLE_USER;
-        var clientTypeEnum = ClientTypeEnum.STANDARD;
-        var createdAt = LocalDateTime.now();
-
-        User user = getUser(lastName, firstName, login, email, password, isActive, clientTypeEnum, roleNameEnum, createdAt);
-        Optional<User> foundUserOptional = userRepository.findUserByEmail(email);
+        var user = getUser();
+        var foundUserOptional = userRepository.findUserByEmail(getUser().getEmail());
         assertThat(foundUserOptional.isEmpty()).isTrue();
 
         //create movie
-        var tittle = "LOTR: The Return of The King";
-        var director = "Peter Jackson";
-        var premiereYear = 2003;
-        var genre = MovieGenreEnum.FANTASY;
-
-        Movie movie = getMovie(tittle, director, premiereYear, genre);
-        Optional<Movie> foundMovieOptional = movieRepository.findMovieByTitle(tittle);
+        var movie = getMovie();
+        var foundMovieOptional = movieRepository.findMovieByTitle(getMovie().getTitle());
         assertThat(foundMovieOptional.isEmpty()).isTrue();
 
         //create related movieCopy
-        MovieCopy copy = getMovieCopy(movie);
-        Optional<MovieCopy> foundMovieCopyOptional = movieCopyRepository.findByMovie_Title(tittle);
+        var copy = getMovieCopy(movie);
+        var foundMovieCopyOptional = movieCopyRepository.findByMovie_Title(getMovie().getTitle());
         assertThat(foundMovieCopyOptional.isEmpty()).isTrue();
 
-        //create order
-        var start = now();
-        var end = now().plusDays(5L);
-        var dailyRentPrice = 5;
-        var totalPrice = 25;
-        var orderStatus = OrderStatusEnum.DELIVERED;
-
-        Order oder = getOrder(user, start, end, dailyRentPrice, totalPrice, orderStatus);
-
-        //create related copyOrder
-        List<MovieCopyOrder> copyOrders = getMovieCopyOrders(copy, oder);
+        //create order and related copyOrder
+        var oder = getOrder(user);
+        var copyOrders = getMovieCopyOrders(copy, oder);
         oder.setMovieCopyOrders(copyOrders);
         copy.setMovieCopyOrders(copyOrders);
-        Optional<Order> foundOrderOptional = orderRepository.findOrderByUser_Email(email);
+        var foundOrderOptional = orderRepository.findOrderByUser_Email(getUser().getEmail());
         assertThat(foundOrderOptional.isEmpty()).isTrue();
 
         //when
         userRepository.save(user);
-        foundUserOptional = userRepository.findUserByEmail(email);
+        foundUserOptional = userRepository.findUserByEmail(getUser().getEmail());
         assertThat(foundUserOptional.isPresent()).isTrue();
 
         movieRepository.save(movie);
-        foundMovieOptional = movieRepository.findMovieByTitle(tittle);
+        foundMovieOptional = movieRepository.findMovieByTitle(getMovie().getTitle());
         assertThat(foundMovieOptional.isPresent()).isTrue();
 
         movieCopyRepository.save(copy);
-        foundMovieCopyOptional = movieCopyRepository.findByMovie_Title(tittle);
+        foundMovieCopyOptional = movieCopyRepository.findByMovie_Title(getMovie().getTitle());
         assertThat(foundMovieCopyOptional.isPresent()).isTrue();
-        MovieCopy foundCopy = foundMovieCopyOptional.get();
+        var foundCopy = foundMovieCopyOptional.get();
 
         orderRepository.save(oder);
-        foundOrderOptional = orderRepository.findOrderByUser_Email(email);
+        foundOrderOptional = orderRepository.findOrderByUser_Email(getUser().getEmail());
         assertThat(foundOrderOptional.isPresent()).isTrue();
-        Order foundOrder = foundOrderOptional.get();
+        var foundOrder = foundOrderOptional.get();
 
         //then
         assertAll(
@@ -139,19 +115,14 @@ class OrderRepositoryTest extends ContainersEnvironment {
         return copyOrders;
     }
 
-    private Order getOrder(User user,
-                           LocalDate start,
-                           LocalDate end,
-                           int dailyRentPrice,
-                           int totalPrice,
-                           OrderStatusEnum orderStatus) {
+    private Order getOrder(User user) {
         Order oder = new Order();
         oder.setUser(user);
-        oder.setStartDate(start);
-        oder.setEndDate(end);
-        oder.setDailyRentPrice(dailyRentPrice);
-        oder.setTotalPrice(totalPrice);
-        oder.setOrderStatus(orderStatus);
+        oder.setStartDate(now());
+        oder.setEndDate(now().plusDays(5L));
+        oder.setDailyRentPrice(5);
+        oder.setTotalPrice(25);
+        oder.setOrderStatus(OrderStatusEnum.DELIVERED);
         return oder;
     }
 
@@ -163,34 +134,27 @@ class OrderRepositoryTest extends ContainersEnvironment {
         return copy;
     }
 
-    private Movie getMovie(String tittle, String director, int premiereYear, MovieGenreEnum genre) {
+    private Movie getMovie() {
         Movie movie = new Movie();
-        movie.setTitle(tittle);
-        movie.setPremiereYear(premiereYear);
-        movie.setMovieGenre(genre);
-        movie.setDirector(director);
+        movie.setTitle("LOTR: The Return of The King");
+        movie.setPremiereYear(2003);
+        movie.setMovieGenre(MovieGenreEnum.FANTASY);
+        movie.setDirector("Peter Jackson");
+        movie.setAddedAt(Instant.now());
         return movie;
     }
 
-    private User getUser(String lastName,
-                         String firstName,
-                         String login,
-                         String email,
-                         String password,
-                         boolean isActive,
-                         ClientTypeEnum clientTypeEnum,
-                         RoleNameEnum roleNameEnum,
-                         LocalDateTime localDateTime) {
+    private User getUser() {
         User user = new User();
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-        user.setLogin(login);
-        user.setEmail(email);
-        user.setPassword(password);
-        user.setActive(isActive);
-        user.setClientType(clientTypeEnum);
-        user.setRole(roleNameEnum);
-        user.setCreatedAt(localDateTime);
+        user.setFirstName("Jan");
+        user.setLastName("Testowy");
+        user.setLogin("testowy");
+        user.setEmail("test@test.pl");
+        user.setPassword("test123");
+        user.setCreatedAt(LocalDateTime.now());
+        user.setActive(true);
+        user.setClientType(ClientTypeEnum.STANDARD);
+        user.setRole(RoleNameEnum.ROLE_USER);
         return user;
     }
 }

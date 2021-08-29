@@ -5,16 +5,17 @@ import com.maja.sdamovieapp.user.entity.DeliveryAddress;
 import com.maja.sdamovieapp.user.entity.User;
 import com.maja.sdamovieapp.user.enums.ClientTypeEnum;
 import com.maja.sdamovieapp.user.enums.RoleNameEnum;
+import org.junit.jupiter.api.Assertions;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
 
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
+import static java.time.LocalDateTime.now;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ActiveProfiles("test")
@@ -28,42 +29,30 @@ class UserRepositoryTest extends ContainersEnvironment {
     private DeliveryAddressRepository addressRepository;
 
     @Test
+    @DisplayName("Zapisuje listę adresów w encji User")
     void shouldSaveListOfAddressesInUserTable() {
 
         //given
-        var lastName = "Syn Gloina";
-        var gimli = "Gimli";
-        var login = "killerAxe";
-        var email = "gimli@erebor.com";
-        var password = "password";
-        var roleNameEnum = RoleNameEnum.ROLE_USER;
-        var clientTypeEnum = ClientTypeEnum.STANDARD;
-        var createdAt = LocalDateTime.now();
-
-        //set User
-        User user = getUser(lastName, gimli, login, email, password, createdAt, clientTypeEnum, roleNameEnum);
-        //set address
-        DeliveryAddress address = getDeliveryAddress(user);
-        //set list of addresses
+        var user = getUser();
+        var address = getDeliveryAddress(user);
         setAddressesList(user, address);
-
-        Optional<User> foundUserOptional = userRepository.findUserByEmail(email);
+        var foundUserOptional = userRepository.findUserByEmail(getUser().getEmail());
         assertThat(foundUserOptional.isEmpty()).isTrue();
 
         //when
         userRepository.save(user);
-        foundUserOptional = userRepository.findUserByEmail(email);
+        foundUserOptional = userRepository.findUserByEmail(user.getEmail());
         assertThat(foundUserOptional.isPresent()).isTrue();
-        User foundUser = foundUserOptional.get();
-
-        List<DeliveryAddress> foundAddresses = addressRepository.findAll();
+        var foundUser = foundUserOptional.get();
+        var foundAddresses = addressRepository.findAll();
 
         //then
-        assertThat(foundUser.getEmail()).isEqualTo(user.getEmail());
-        assertThat(foundUser.getFirstName()).isEqualTo(user.getFirstName());
-        assertThat(foundUser.getLogin()).isEqualTo(user.getLogin());
-
-        assertThat(foundAddresses.isEmpty()).isFalse();
+        Assertions.assertAll(
+                () -> assertThat(foundUser.getEmail()).isEqualTo(user.getEmail()),
+                () -> assertThat(foundUser.getFirstName()).isEqualTo(user.getFirstName()),
+                () ->assertThat(foundUser.getLogin()).isEqualTo(user.getLogin()),
+                () ->assertThat(foundAddresses.isEmpty()).isFalse()
+        );
     }
 
     private void setAddressesList(User user, DeliveryAddress address) {
@@ -82,24 +71,17 @@ class UserRepositoryTest extends ContainersEnvironment {
         return address;
     }
 
-    private User getUser(String lastName,
-                         String gimli,
-                         String login,
-                         String email,
-                         String password,
-                         LocalDateTime createdAt,
-                         ClientTypeEnum clientTypeEnum,
-                         RoleNameEnum roleNameEnum) {
+    private User getUser() {
         User user = new User();
-        user.setFirstName(gimli);
-        user.setLastName(lastName);
-        user.setLogin(login);
-        user.setEmail(email);
-        user.setPassword(password);
-        user.setCreatedAt(createdAt);
+        user.setFirstName("Jan");
+        user.setLastName("Testowy");
+        user.setLogin("testowy");
+        user.setEmail("test@test.pl");
+        user.setPassword("test123");
+        user.setCreatedAt(now());
         user.setActive(true);
-        user.setClientType(clientTypeEnum);
-        user.setRole(roleNameEnum);
+        user.setClientType(ClientTypeEnum.STANDARD);
+        user.setRole(RoleNameEnum.ROLE_USER);
         return user;
     }
 }

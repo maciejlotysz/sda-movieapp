@@ -26,3 +26,8 @@ spring:
 server:
   error:
     include-message: always
+
+movieapp:
+  movie:
+    display:
+      number: 2
