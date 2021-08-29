@@ -48,16 +48,9 @@ class RegisterServiceTest extends ContainersEnvironment {
     void shouldThrowExceptionWhenLoginAndEmailAlreadyExists() {
 
         //given
-        var lastName = "Testowy";
-        var firstName = "Jan";
         var login = "testowy";
         var email = "test@test.pl";
-        var password = "Test1!";
-        var roleNameEnum = RoleNameEnum.ROLE_USER;
-        var clientTypeEnum = ClientTypeEnum.STANDARD;
-        var createdAt = LocalDateTime.now();
-
-        User user = getUser(lastName, firstName, login, email, password, createdAt, clientTypeEnum, roleNameEnum);
+        User user = getUser(login, email);
         userRepository.save(user);
 
         //when&then
@@ -69,16 +62,9 @@ class RegisterServiceTest extends ContainersEnvironment {
     void shouldThrowExceptionWhenLoginAlreadyExists() {
 
         //given
-        var lastName = "Testowy";
-        var firstName = "Jan";
         var login = "testowy";
-        var email = "test_test@test.pl";
-        var password = "Test1!";
-        var roleNameEnum = RoleNameEnum.ROLE_USER;
-        var clientTypeEnum = ClientTypeEnum.STANDARD;
-        var createdAt = LocalDateTime.now();
-
-        User user = getUser(lastName, firstName, login, email, password, createdAt, clientTypeEnum, roleNameEnum);
+        var email = "test.test@test.pl";
+        User user = getUser(login, email);
         userRepository.save(user);
 
         //when&then
@@ -90,16 +76,9 @@ class RegisterServiceTest extends ContainersEnvironment {
     void shouldThrowExceptionWhenEmailAlreadyExists() {
 
         //given
-        var lastName = "Testowy";
-        var firstName = "Jan";
-        var login = "test_test";
+        var login = "test123";
         var email = "test@test.pl";
-        var password = "Test1!";
-        var roleNameEnum = RoleNameEnum.ROLE_USER;
-        var clientTypeEnum = ClientTypeEnum.STANDARD;
-        var createdAt = LocalDateTime.now();
-
-        var user = getUser(lastName, firstName, login, email, password, createdAt, clientTypeEnum, roleNameEnum);
+        User user = getUser(login, email);
         userRepository.save(user);
 
         //when&then
@@ -116,24 +95,17 @@ class RegisterServiceTest extends ContainersEnvironment {
         );
     }
 
-    private User getUser(String lastName,
-                         String firstName,
-                         String login,
-                         String email,
-                         String password,
-                         LocalDateTime createdAt,
-                         ClientTypeEnum clientTypeEnum,
-                         RoleNameEnum roleNameEnum) {
+    private User getUser(String login, String email) {
         User user = new User();
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
+        user.setFirstName("Jan");
+        user.setLastName("Testowy");
         user.setLogin(login);
         user.setEmail(email);
-        user.setPassword(password);
-        user.setCreatedAt(createdAt);
+        user.setPassword("Test1!");
+        user.setCreatedAt(LocalDateTime.now());
         user.setActive(true);
-        user.setClientType(clientTypeEnum);
-        user.setRole(roleNameEnum);
+        user.setClientType(ClientTypeEnum.STANDARD);
+        user.setRole(RoleNameEnum.ROLE_USER);
         return user;
     }
 }

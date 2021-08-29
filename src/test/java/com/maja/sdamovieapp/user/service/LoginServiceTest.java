@@ -43,28 +43,16 @@ class LoginServiceTest extends ContainersEnvironment {
     PasswordEncoder passwordEncoder;
 
 
-
-
     @Test
     @DisplayName("Loguje pomyślnie zarejsetrowanego i aktywnego użytkownika do serwisu")
     @Transactional
     void shouldLoginUserWhenUserIsRegisterAndIsActive() {
 
         //given
-        var id = 1L;
-        var firstName = "Jan";
-        var lastName = "Testowy";
-        var login = "test_test";
-        var email = "test@test.pl";
-        var password = "Test1!";
-        var roleNameEnum = RoleNameEnum.ROLE_USER;
-        var createdAt = LocalDateTime.now();
-        var clientTypeEnum = ClientTypeEnum.STANDARD;
-        var isActive = true;
-
         var loginDTO = new LoginRequestDTO("test@test.pl", "Test1!");
-        var user = getUser(id, firstName, lastName, login, email, passwordEncoder.encode(password), roleNameEnum, createdAt, clientTypeEnum, isActive);
+        var user = getUser(true);
         userRepository.save(user);
+
         var authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginDTO.getEmail(), loginDTO.getPassword()));
 
@@ -73,9 +61,8 @@ class LoginServiceTest extends ContainersEnvironment {
 
         //then
         Assertions.assertAll(
-
                 () -> assertThat(userMapper.mapToUserDTO(user).getEmail()).isEqualTo(user.getEmail()),
-                () -> assertThat(userRepository.getById(id)).isEqualTo(user),
+                () -> assertThat(userRepository.getById(1L)).isEqualTo(user),
                 () -> assertThat(userMapper.mapToUserDTO(user).getRole()).isEqualTo("ROLE_USER"),
                 () -> assertThat(authentication.isAuthenticated()).isTrue()
         );
@@ -87,47 +74,26 @@ class LoginServiceTest extends ContainersEnvironment {
     void shouldThrowExceptionWhenUserIsNotActive() {
 
         //given
-        var id = 1L;
-        var firstName = "Jan";
-        var lastName = "Testowy";
-        var login = "test_test";
-        var email = "test@test.pl";
-        var password = "Test1!";
-        var roleNameEnum = RoleNameEnum.ROLE_USER;
-        var createdAt = LocalDateTime.now();
-        var clientTypeEnum = ClientTypeEnum.STANDARD;
-        var isActive = false;
-
         var loginDTO = new LoginRequestDTO("test@test.pl", "Test1!");
-        var user = getUser(id, firstName, lastName, login, email, passwordEncoder.encode(password), roleNameEnum, createdAt, clientTypeEnum, isActive);
+        var user = getUser(false);
         userRepository.save(user);
 
         //when&then
         Assertions.assertThrows(UserNotAuthenticatedException.class, () -> loginService.login(loginDTO));
     }
 
-    private User getUser(Long id,
-                         String firstName,
-                         String lastName,
-                         String login,
-                         String email,
-                         String password,
-                         RoleNameEnum roleNameEnum,
-                         LocalDateTime createdAt,
-                         ClientTypeEnum clientTypeEnum,
-                         boolean isActive) {
+    private User getUser(boolean isActive) {
         User user = new User();
-        user.setId(id);
-        user.setFirstName(firstName);
-        user.setLastName(lastName);
-        user.setLogin(login);
-        user.setEmail(email);
-        user.setPassword(password);
-        user.setRole(roleNameEnum);
-        user.setCreatedAt(createdAt);
-        user.setClientType(clientTypeEnum);
+        user.setId(1L);
+        user.setFirstName("Jan");
+        user.setLastName("Testowy");
+        user.setLogin("test_test");
+        user.setEmail("test@test.pl");
+        user.setPassword(passwordEncoder.encode("Test1!"));
+        user.setRole(RoleNameEnum.ROLE_USER);
+        user.setCreatedAt(LocalDateTime.now());
+        user.setClientType(ClientTypeEnum.STANDARD);
         user.setActive(isActive);
         return user;
     }
-
 }
