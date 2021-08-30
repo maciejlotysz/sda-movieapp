@@ -22,6 +22,11 @@ public class RegistrationController {
 
     /**
      * Endpoint do rejestracji użytkownika
+     *
+     * @param registerRequestDTO obiekt typu RegisterRequestDTO
+     * @return ResponseEntity ze statusem 201(CREATED) jeśli user został pomyślnie zarejestrowany
+     *
+     * zwraca 409(CONFLICT) jesśli user już istnieje w bazie
      */
 
     @PostMapping("/signup")

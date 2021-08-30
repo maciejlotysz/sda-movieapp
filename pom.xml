@@ -12,7 +12,7 @@
     <artifactId>sda-movieapp</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>sda-movieapp</name>
-    <description>Demo project for Spring Boot</description>
+    <description>MovieApp backend</description>
 
     <properties>
         <java.version>11</java.version>
@@ -73,14 +73,14 @@
             <scope>test</scope>
         </dependency>
 
-        <!--Wszytywanie skryptów sql-->
+        <!--    Wczytywanie skryptów sql    -->
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
             <version>7.14.0</version>
         </dependency>
 
-        <!--testcontainers-->
+        <!--    testcontainers  -->
         <dependency>
             <groupId>org.testcontainers</groupId>
             <artifactId>junit-jupiter</artifactId>
@@ -92,13 +92,14 @@
             <scope>test</scope>
         </dependency>
 
-        <!--     Swagger-->
+        <!--   Swagger      -->
         <dependency>
             <groupId>io.springfox</groupId>
             <artifactId>springfox-boot-starter</artifactId>
             <version>3.0.0</version>
         </dependency>
 
+        <!--    MapStruct    -->
         <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct</artifactId>

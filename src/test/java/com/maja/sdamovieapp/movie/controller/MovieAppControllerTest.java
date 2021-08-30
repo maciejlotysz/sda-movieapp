@@ -3,9 +3,7 @@ package com.maja.sdamovieapp.movie.controller;
 import com.maja.sdamovieapp.config.ContainersEnvironment;
 import com.maja.sdamovieapp.movie.entity.Movie;
 import com.maja.sdamovieapp.movie.enums.MovieGenreEnum;
-import com.maja.sdamovieapp.movie.mapper.MovieMapper;
 import com.maja.sdamovieapp.movie.repository.MovieRepository;
-import com.maja.sdamovieapp.movie.service.MovieService;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -41,14 +39,8 @@ class MovieAppControllerTest extends ContainersEnvironment {
     @Autowired
     private MockMvc mvc;
 
-    @Autowired
-    private MovieService movieService;
-
     @MockBean
     private MovieRepository movieRepository;
-
-    @Autowired
-    private MovieMapper movieMapper;
 
     @Value("${movieapp.movie.display.number}")
     private int pageable;
