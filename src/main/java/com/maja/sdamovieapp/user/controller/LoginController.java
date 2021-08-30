@@ -14,6 +14,15 @@ public class LoginController {
 
     private final LoginService loginService;
 
+    /**
+     * Endpoint do logowania użytkownika
+     *
+     * @param loginRequestDTO obiekt typu LoginRequestDto
+     * @return UserDTO ze statusem 200(OK)
+     *
+     * zwaraca 401(UNAUTHORIZED) jeśli user nie jest zarejestrowany i aktywny
+     */
+
     @PostMapping(path = "/api/v1/login")
     public UserDTO signIn(@RequestBody LoginRequestDTO loginRequestDTO) {
         return loginService.login(loginRequestDTO);

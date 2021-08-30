@@ -46,7 +46,6 @@ class MovieServiceTest extends ContainersEnvironment {
 
         //then
         Assertions.assertThat(service.getLastAddedMovies().size()).isEqualTo(2);
-
     }
 
     private Movie getMovie(String tittle, String director, int premiereYear, MovieGenreEnum genre, Instant addedAt) {
@@ -58,5 +57,4 @@ class MovieServiceTest extends ContainersEnvironment {
         movie.setAddedAt(addedAt);
         return movie;
     }
-
 }

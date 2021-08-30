@@ -14,4 +14,6 @@ public interface MovieRepository extends JpaRepository<Movie, Long> {
     Optional<Movie> findMovieByTitle(String title);
 
     List<Movie> findAllByOrderByAddedAtDesc(Pageable pageable);
+
+    Optional<Movie> findMovieByTitleAndPremiereYearAndDirector(String title, int year, String director);
 }
