@@ -22,6 +22,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ActiveProfiles("test")
 @SpringBootTest
@@ -79,7 +80,7 @@ class LoginServiceTest extends ContainersEnvironment {
         userRepository.save(user);
 
         //when&then
-        Assertions.assertThrows(UserNotAuthenticatedException.class, () -> loginService.login(loginDTO));
+        assertThrows(UserNotAuthenticatedException.class, () -> loginService.login(loginDTO));
     }
 
     private User getUser(boolean isActive) {
