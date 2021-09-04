@@ -1,10 +1,10 @@
 package com.maja.sdamovieapp.order.repository;
 
 import com.maja.sdamovieapp.config.ContainersEnvironment;
-import com.maja.sdamovieapp.copy.entity.MovieCopy;
-import com.maja.sdamovieapp.copy.enums.CopyStatusEnum;
-import com.maja.sdamovieapp.copy.enums.DiscTypeEnum;
-import com.maja.sdamovieapp.copy.repository.MovieCopyRepository;
+import com.maja.sdamovieapp.movie.entity.MovieCopy;
+import com.maja.sdamovieapp.movie.enums.CopyStatusEnum;
+import com.maja.sdamovieapp.movie.enums.DiscTypeEnum;
+import com.maja.sdamovieapp.movie.repository.MovieCopyRepository;
 import com.maja.sdamovieapp.movie.entity.Movie;
 import com.maja.sdamovieapp.movie.enums.MovieGenreEnum;
 import com.maja.sdamovieapp.movie.repository.MovieRepository;

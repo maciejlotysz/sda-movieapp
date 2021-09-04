@@ -1,4 +1,4 @@
-package com.maja.sdamovieapp.copy.enums;
+package com.maja.sdamovieapp.movie.enums;
 
 public enum CopyStatusEnum {
 
