@@ -1,6 +1,6 @@
 package com.maja.sdamovieapp.order.entity;
 
-import com.maja.sdamovieapp.copy.entity.MovieCopy;
+import com.maja.sdamovieapp.movie.entity.MovieCopy;
 import lombok.Data;
 
 import javax.persistence.*;

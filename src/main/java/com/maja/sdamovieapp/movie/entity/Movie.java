@@ -1,6 +1,5 @@
 package com.maja.sdamovieapp.movie.entity;
 
-import com.maja.sdamovieapp.copy.entity.MovieCopy;
 import com.maja.sdamovieapp.movie.enums.MovieGenreEnum;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

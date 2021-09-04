@@ -1,6 +1,6 @@
-package com.maja.sdamovieapp.copy.repository;
+package com.maja.sdamovieapp.movie.repository;
 
-import com.maja.sdamovieapp.copy.entity.MovieCopy;
+import com.maja.sdamovieapp.movie.entity.MovieCopy;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
