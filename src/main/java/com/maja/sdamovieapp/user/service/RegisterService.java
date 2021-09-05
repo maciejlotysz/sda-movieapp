@@ -26,7 +26,6 @@ public class RegisterService {
 
     @Transactional
     public void signup(RegisterRequestDTO requestDTO) {
-
         userRepository.findUserByLoginOrEmail(requestDTO.getLogin(), requestDTO.getEmail())
                 .ifPresent(user -> {
                     if (user.getEmail().equals(requestDTO.getEmail()) || user.getLogin().equals(requestDTO.getLogin())) {

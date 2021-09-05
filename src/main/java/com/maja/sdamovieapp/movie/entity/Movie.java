@@ -51,6 +51,6 @@ public class Movie {
 
     @EqualsAndHashCode.Exclude
     @ToString.Exclude
-    @OneToMany(mappedBy = "movie", cascade ={CascadeType.MERGE, CascadeType.PERSIST})
+    @OneToMany(mappedBy = "movie", cascade ={CascadeType.MERGE, CascadeType.PERSIST}, fetch = FetchType.LAZY)
     private List<MovieCopy> copies = new ArrayList<>();
 }
